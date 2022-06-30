@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style-type: none;
+}
+
+select {
+  padding: 8px;
+  border-radius: 6px;
+  min-width: 100px;
+  background-color: #fff;
+  border: 1px solid gray;
+}

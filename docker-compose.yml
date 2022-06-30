@@ -1,0 +1,21 @@
+version: '2.4'
+
+services:
+
+    postgres_local:
+      container_name: "meu-postgres-curso-local"
+      image: "postgres:13.3-alpine"
+      ports:
+        - "5432:5432"
+      network_mode: host
+      environment:
+        POSTGRES_USER: cursos
+        POSTGRES_PASSWORD: cursos2022-bu
+        POSTGRES_DB: db_cursos
+        POSTGRES_HOST: localhost
+        POSTGRES_PORT: 5432
+      volumes:
+        - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

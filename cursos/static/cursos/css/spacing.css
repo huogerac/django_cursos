@@ -1,0 +1,53 @@
+.ma-1 {
+  margin: 8px;
+}
+
+.ma-2 {
+  margin: 16px;
+}
+
+.ma-3 {
+  margin: 32px;
+}
+
+.mb-1 {
+  margin-bottom: 8px;
+}
+
+.mb-2 {
+  margin-bottom: 16px;
+}
+
+.ml-2 {
+  margin-left: 16px;
+}
+
+.my-2 {
+  margin-bottom: 16px;
+  margin-top: 16px;
+}
+
+.pa-1 {
+  padding: 8px;
+}
+
+.pa-2 {
+  padding: 16px;
+}
+
+.pa-3 {
+  padding: 32px;
+}
+
+.px-1 {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.keep-left {
+  margin-right: auto;
+}
+
+.center {
+  text-align: center;
+}

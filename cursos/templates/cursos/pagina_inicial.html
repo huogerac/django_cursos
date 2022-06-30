@@ -1,1 +1,13 @@
-<h1>Cursos</h1>
+{% extends 'cursos/base.html' %} 
+
+
+{% block conteudo %}
+<section class="course-list center">
+  <p>
+    <a href="{% url 'cursos.listar.tudo' %}">Ver cursos</a>
+  </p>
+  <p>
+    <a href="">Login</a>
+  </p>
+</section>
+{% endblock conteudo %}

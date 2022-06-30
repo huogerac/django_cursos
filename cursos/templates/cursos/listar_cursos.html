@@ -1,0 +1,39 @@
+{% extends 'cursos/base.html' %} 
+{% load static %}
+
+{% block conteudo %}
+
+<section class="course-list center">
+  <!-- LISTA DE TODOS OS CURSOS-->
+
+  <ul>
+    <li class="course-item ma-3">
+      <div class="course">
+        <div class="course-image">
+          <img
+            src="{% static 'cursos/images/dejavu_matrix.jpg' %}"
+            alt="Gato Preto"
+          />
+        </div>
+        <div class="course-info">
+          <h2 class="title mb-2">D-Já Vue - Uma jornada pela Web</h2>
+          <p class="description mb-2">
+            Como construir aplicações web com agilidade e qualidade.
+          </p>
+
+          <div class="course-actions pa-1">
+            <p class="badge keep-left bold">FREE</p>
+            <span>42 horas</span>
+            <button class="btn btn-primary">Iniciar</button>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <p>
+    <a href="{% url 'cursos.inicio' %}">Voltar para início</a>
+  </p>
+</section>
+
+{% endblock conteudo %}
