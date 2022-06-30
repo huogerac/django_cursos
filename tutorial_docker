@@ -1,0 +1,5 @@
+3 formas da gente utilizar docker
+
+- quero um Postgres pq uso isto, mas quero simplicidade na vida
+- transformar meu projeto Django tambem em um container docker (Dockerfile)
+- publicar seu projeto usando Docker
