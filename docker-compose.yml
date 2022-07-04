@@ -8,12 +8,8 @@ services:
       ports:
         - "5432:5432"
       network_mode: host
-      environment:
-        POSTGRES_USER: cursos
-        POSTGRES_PASSWORD: cursos2022-bu
-        POSTGRES_DB: db_cursos
-        POSTGRES_HOST: localhost
-        POSTGRES_PORT: 5432
+      env_file:
+        - .env
       volumes:
         - postgres_data:/var/lib/postgresql/data
 
