@@ -11,7 +11,13 @@ def pagina_inicial(request):
 
 
 def listar_cursos(request):
+    return render(request, 'cursos/listar_cursos.html')
+
+
+def listar_aulas(request, pk):
+    curso = Curso.objects.get(id=pk)
     context = {
-        "cursos": Curso.objects.all().order_by('nome')
+        "curso": curso,
+        "aulas": curso.aulas.all()
     }
-    return render(request, 'cursos/listar_cursos.html', context)
+    return render(request, 'cursos/listar_aulas.html', context)

@@ -1,0 +1,18 @@
+{% extends 'cursos/base.html' %} {% load static %} {% block conteudo %}
+
+<section class="course-list center">
+  <h1>Aulas</h1>
+  <h2>{{ curso.nome }}</h2>
+
+  <ul>
+    {% for aula in aulas %}
+    <li>{{ aula.nome }}</li>
+    {% endfor %}
+  </ul>
+
+  <p>
+    <a href="{% url 'cursos.inicio' %}">Voltar para início</a>
+  </p>
+</section>
+
+{% endblock conteudo %}
