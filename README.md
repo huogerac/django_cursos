@@ -29,6 +29,8 @@ docker-compose up -d
 --> ERRO comum nesta etapa, o Docker utilizar cache das camadas, faça:
     docker system prune --volumes
     tente novamente o build
+    Já tem um container postgres rodando na mesma porta (do .env), faça um
+    docker ps e depois docker kill neles
 ```
 
 - 4. INSTALAR DEPENDENCIAS DO DJANGO
