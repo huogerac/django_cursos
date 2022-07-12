@@ -1,5 +1,8 @@
 from django.shortcuts import render
 
+from .models import Curso
+
+
 def pagina_inicial(request):
     context = {
         "cursos": []
@@ -8,4 +11,7 @@ def pagina_inicial(request):
 
 
 def listar_cursos(request):
-    return render(request, 'cursos/listar_cursos.html')
+    context = {
+        "cursos": Curso.objects.all().order_by('nome')
+    }
+    return render(request, 'cursos/listar_cursos.html', context)

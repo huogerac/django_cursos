@@ -3,7 +3,6 @@ version: '2.4'
 services:
 
     postgres_local:
-      container_name: "meu-postgres-curso-local"
       image: "postgres:13.3-alpine"
       ports:
         - "55432:5432"

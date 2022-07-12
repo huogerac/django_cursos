@@ -1,13 +1,10 @@
-{% extends 'cursos/base.html' %}
-{% load static %} 
-
-
-{% block conteudo %}
+{% extends 'cursos/base.html' %} {% load static %} {% block conteudo %}
 
 <section class="course-list center">
   <!-- LISTA DE TODOS OS CURSOS-->
 
   <ul>
+    {% for curso in cursos %}
     <li class="course-item ma-3">
       <div class="course">
         <div class="course-image">
@@ -17,19 +14,17 @@
           />
         </div>
         <div class="course-info">
-          <h2 class="title mb-2">D-Já Vue - Uma jornada pela Web</h2>
-          <p class="description mb-2">
-            Como construir aplicações web com agilidade e qualidade.
-          </p>
-
+          <h2 class="title mb-2">{{ curso.nome }}</h2>
+          <p class="description mb-2">{{ curso.descricao }}</p>
           <div class="course-actions pa-1">
             <p class="badge keep-left bold">FREE</p>
-            <span>42 horas</span>
+            <span>{{ curso.autor.nome }}</span>
             <button class="btn btn-primary">Iniciar</button>
           </div>
         </div>
       </div>
     </li>
+    {% endfor %}
   </ul>
 
   <p>

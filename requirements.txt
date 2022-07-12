@@ -8,4 +8,3 @@ psycopg2==2.9.3
 
 # Deploy Prod
 python-dotenv==0.20.0
-uWSGI==2.0.20

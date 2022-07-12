@@ -1,15 +1,30 @@
 {% extends 'cursos/base.html' %} {% block conteudo %}
 <section class="course-list center">
-  <p>User: {{ user }}</p>
-  <p>User: {{ user.first_name }}</p>
-  <p>Cursos: {{ cursos }}</p>
-  <p>request: {{ request }}</p>
-
+  <p>
+    User: {% if user.is_authenticated %}Usuário Logado{% else %}Usuário NÃO logado ainda{% endif %}
+  </p>
+  {% if user.is_authenticated %}
+  <p>User: {{ user.username }}, 
+    ({% if not user.first_name %}
+    Entre no admin e adicione um nome para este usuário
+    {% else %}
+    {{ user.first_name }} )
+    {% endif %}
+  </p>
+  {% endif %}
   <p>
     <a href="{% url 'cursos.listar.tudo' %}">Ver cursos</a>
   </p>
+
   <p>
-    <a href="">Login</a>
+    <a href="/admin/">Acessar Admin</a>
+  </p>
+  <p>
+  {% if user.is_authenticated %}
+    <a href="/admin/logout/">Logout</a>
+    {% else %}
+    <a href="/admin/login/">Login</a>
+    {% endif %}
   </p>
 </section>
 {% endblock conteudo %}
