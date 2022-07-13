@@ -21,9 +21,9 @@
   </p>
   <p>
   {% if user.is_authenticated %}
-    <a href="/admin/logout/">Logout</a>
+    <a href="{% url 'contas.logout' %}">Logout</a>
     {% else %}
-    <a href="/admin/login/">Login</a>
+    <a href="{% url 'contas.login' %}">Login</a>
     {% endif %}
   </p>
 </section>

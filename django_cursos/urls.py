@@ -22,6 +22,7 @@ from . import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('cursos/', include('cursos.urls')),
+    path('contas/', include('contas.urls')),
     path('', RedirectView.as_view(url='/cursos')),
  
 ]
