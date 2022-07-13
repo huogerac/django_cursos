@@ -8,7 +8,8 @@ def pagina_inicial(request):
 
 
 def listar_cursos(request):
-    cursos = Curso.objects.all().order_by('nome')
+    ordem = request.GET.get("ordenacao", "nome")
+    cursos = Curso.objects.all().order_by(ordem)
     context = {
         'cursos': cursos,
     }

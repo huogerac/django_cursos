@@ -2,7 +2,13 @@
 
 <section class="course-list center">
   <!-- LISTA DE TODOS OS CURSOS-->
-
+  <form action=".">
+    <select name="ordenacao" id="ordenacao">
+      <option value="nome">Alfabética</option>
+      <option value="-nome">Invertida</option>
+    </select>
+    <input type="submit" value="Alterar Ordem" />
+  </form>
   <ul>
     {% for curso in cursos %}
     <li class="course-item ma-3">
