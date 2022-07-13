@@ -16,6 +16,9 @@
         <div class="course-info">
           <h2 class="title mb-2">{{ curso.nome }}</h2>
           <p class="description mb-2">{{ curso.descricao }}</p>
+          <p>
+            <a href="{% url 'cursos.listar.aulas' curso.id %}">Ver aulas</a>
+          </p>
           <div class="course-actions pa-1">
             <p class="badge keep-left bold">FREE</p>
             <span>{{ curso.autor.nome }}</span>
