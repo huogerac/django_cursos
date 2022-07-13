@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import reverse, render
+from django.views.generic.edit import CreateView, UpdateView
 
 from .models import Curso
+from .forms import CursoModelForm
 
 
 def pagina_inicial(request):
@@ -23,3 +25,20 @@ def listar_aulas(request, pk):
         "aulas": curso.aulas.all()
     }
     return render(request, 'cursos/listar_aulas.html', context)
+
+
+class CursoMixin(object):
+    model = Curso
+    form_class = CursoModelForm
+    context_object_name = "curso"
+
+    def get_success_url(self):
+        return reverse("cursos.listar.tudo")
+
+
+class NovoCursoView(CursoMixin, CreateView):
+    template_name = "cursos/curso_novo.html"
+
+
+class AlterarCursoView(CursoMixin, UpdateView):
+    template_name = "cursos/curso_alterar.html"

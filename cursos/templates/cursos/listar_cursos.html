@@ -20,7 +20,12 @@
           />
         </div>
         <div class="course-info">
-          <h2 class="title mb-2">{{ curso.nome }}</h2>
+          <h2 class="title mb-2">
+            {{ curso.nome }}
+            <span
+              ><a href="{% url 'cursos.alterar' curso.id %}">EDITAR</a></span
+            >
+          </h2>
           <p class="description mb-2">{{ curso.descricao }}</p>
           <p>
             <a href="{% url 'cursos.listar.aulas' curso.id %}">Ver aulas</a>
@@ -34,6 +39,9 @@
       </div>
     </li>
     {% endfor %}
+    <li>
+      <a href="{% url 'cursos.novo' %}">CADASTRAR NOVO CURSO</a>
+    </li>
   </ul>
 
   <p>
