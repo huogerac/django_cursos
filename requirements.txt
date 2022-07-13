@@ -8,3 +8,6 @@ psycopg2==2.9.3
 
 # Deploy Prod
 python-dotenv==0.20.0
+
+# Outros
+django-extensions==3.2.0
