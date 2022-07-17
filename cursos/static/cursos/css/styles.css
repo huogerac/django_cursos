@@ -190,6 +190,21 @@ section.header {
   transition: border-bottom 0.4s ease;
 }
 
+span.curso-like {
+  padding-right: 40px;
+}
+
+button.btn-like {
+  font-size: 1.8rem;
+  border: transparent;
+  color: #9f9f9f;
+  cursor: pointer;
+}
+
+button.btn-like.like {
+  color: #e01f1f;
+}
+
 @media only screen and (max-width: 600px) {
   .course-image,
   .course-info {
