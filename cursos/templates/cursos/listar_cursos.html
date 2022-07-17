@@ -15,7 +15,7 @@
       <div class="course">
         <div class="course-image">
           <img
-            src="{% static 'cursos/imagens/dejavu_matrix.jpg' %}"
+            src="{% if curso.imagem %}{{ curso.imagem}}{% else %}{% static 'cursos/imagens/dejavu_matrix.jpg' %}{% endif %}"
             alt="Gato Preto"
           />
         </div>

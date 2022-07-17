@@ -9,5 +9,6 @@ class CursoModelForm(forms.ModelForm):
         fields = [
             "nome",
             "descricao",
+            "imagem",
             "autor",
         ]

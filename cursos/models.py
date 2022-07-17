@@ -15,6 +15,7 @@ class Curso(models.Model):
     slug = models.SlugField(max_length=256, unique=True, null=True, blank=True)
     descricao = models.TextField()
     autor = models.ForeignKey("Autor", on_delete=models.SET_NULL, null=True, blank=True, related_name="cursos")
+    imagem = models.URLField(max_length=1024, null=True, blank=True)
     ativo = models.BooleanField(default=True)
 
     def __str__(self):
