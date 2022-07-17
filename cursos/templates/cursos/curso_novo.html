@@ -11,9 +11,9 @@
       <div class="row">
         <h2>{% block titulo %}Novo Curso{% endblock titulo %}</h2>
         <form method="post" enctype="multipart/form-data">
-          {% csrf_token %} {{ form }}
+          {% csrf_token %} {{ form.as_p }}
 
-          <button type="submit">Salvar novo curso</button>
+          <button type="submit">{% block btn_title %}Salvar novo curso{% endblock btn_title %}</button>
         </form>
       </div>
     </div>
