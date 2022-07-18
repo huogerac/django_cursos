@@ -31,7 +31,14 @@
             <a href="{% url 'cursos.listar.aulas' curso.id %}">Ver aulas</a>
           </p>
           <div class="course-actions pa-1">
-            <p class="badge keep-left bold">FREE</p>
+            <p class="badge keep-left bold">FREE </p>
+            <form action="{% url 'cursos.like_no_curso' curso.id %}" method="POST">{% csrf_token %}
+              <span class="curso-like">
+                <button class="btn-like {% if curso in likes %}like{% endif %}" type="submit"><i class="fa-solid fa-heart"></i>
+                </button>
+                <strong class="likes"> {{ curso.likes.count }}</strong>
+              </span>
+            </form>
             <span>{{ curso.autor.nome }}</span>
             <button class="btn btn-primary">Iniciar</button>
           </div>

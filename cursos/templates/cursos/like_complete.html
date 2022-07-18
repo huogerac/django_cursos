@@ -1,0 +1,24 @@
+{% extends 'cursos/base.html' %}
+{% load static %}
+
+{% block hero %}{% endblock hero %}
+
+{% block conteudo %}
+
+<section class="course-list center">
+
+  <h1>Likes!</h1>
+  {% if messages %}
+  <ul class="messages">
+      {% for message in messages %}
+      <li><h1>{{ message }}</h1></li>
+      {% endfor %}
+  </ul>
+  {% endif %}
+
+  <p>
+    <a href="{% url 'cursos.listar.tudo' %}">Voltar para os cursos</a>
+  </p>
+</section>
+
+{% endblock conteudo %}

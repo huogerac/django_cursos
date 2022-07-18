@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 
 
@@ -41,3 +42,13 @@ class Aula(models.Model):
         if not self.id:
             self.slug = slugify(self.nome)
         super(Aula, self).save(*args, **kwargs)
+
+
+class CursoLikes(models.Model):
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    curso = models.ForeignKey(Curso, on_delete=models.CASCADE, related_name="likes")
+    data = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = [['user', 'curso']]

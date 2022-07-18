@@ -1,7 +1,9 @@
-from django.shortcuts import reverse, render
+from django.shortcuts import reverse, render, get_object_or_404, redirect
+from django.contrib import messages
+from django.db.utils import IntegrityError
 from django.views.generic.edit import CreateView, UpdateView
 
-from .models import Curso
+from .models import Curso, CursoLikes
 from .forms import CursoModelForm
 
 
@@ -14,6 +16,7 @@ def listar_cursos(request):
     cursos = Curso.objects.all().order_by(ordem)
     context = {
         'cursos': cursos,
+        'likes': [likes.curso for likes in CursoLikes.objects.filter(user=request.user)],
     }
     return render(request, 'cursos/listar_cursos.html', context)
 
@@ -42,3 +45,28 @@ class NovoCursoView(CursoMixin, CreateView):
 
 class AlterarCursoView(CursoMixin, UpdateView):
     template_name = "cursos/curso_alterar.html"
+
+
+def like_no_curso(request, pk):
+    # FYI
+    # try:
+    #     curso = Curso.objects.get(pk=pk)
+    # except Curso.DoesNotExist:
+    #     raise Http404("Given query not found....")
+
+    user = request.user
+    curso = get_object_or_404(Curso, pk=pk)
+
+    try:
+        CursoLikes.objects.create(user=user, curso=curso)
+        messages.success(request, f'{curso.autor} agradece seu LIKE!')
+
+    except IntegrityError as erro:
+        # SOLUCAO 1
+        # messages.error(request, f'Ops! você já deu like no {curso.nome}!')
+        CursoLikes.objects.get(user=user, curso=curso).delete()
+        messages.success(request, f'Like removido!')
+
+    # SOLUCAO 1
+    #return render(request, 'cursos/like_complete.html')
+    return redirect(reverse('cursos.listar.tudo'))
