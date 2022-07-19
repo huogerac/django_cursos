@@ -1,4 +1,8 @@
-{% extends 'cursos/base.html' %} {% load static %} {% block conteudo %}
+{% extends 'cursos/base.html' %}
+
+{% load static %}
+
+{% block conteudo %}
 
 <section class="course-list center">
   <!-- LISTA DE TODOS OS CURSOS-->
@@ -31,14 +35,20 @@
             <a href="{% url 'cursos.listar.aulas' curso.id %}">Ver aulas</a>
           </p>
           <div class="course-actions pa-1">
-            <p class="badge keep-left bold">FREE </p>
-            <form action="{% url 'cursos.like_no_curso' curso.id %}" method="POST">{% csrf_token %}
-              <span class="curso-like">
-                <button class="btn-like {% if curso in likes %}like{% endif %}" type="submit"><i class="fa-solid fa-heart"></i>
-                </button>
-                <strong class="likes"> {{ curso.likes.count }}</strong>
-              </span>
-            </form>
+            <p class="badge keep-left bold">FREE</p>
+
+            <span class="curso-like">
+              <button
+                class="btn-like {% if curso in likes %}like{% endif %}"
+                type="submit"
+                onclick="likeCurso({{ curso.id }});"
+                id="like_{{ curso.id }}"
+              >
+                <i class="fa-solid fa-heart"></i>
+              </button>
+              <strong class="likes" id="likes_count_{{ curso.id}}"> {{ curso.likes.count }}</strong>
+            </span>
+
             <span>{{ curso.autor.nome }}</span>
             <button class="btn btn-primary">Iniciar</button>
           </div>
@@ -57,3 +67,25 @@
 </section>
 
 {% endblock conteudo %}
+
+{% block js %}
+<script>
+  function likeCurso(idCurso) {
+    fetch("/cursos/api/like/" + idCurso)
+      .then((response) => response.json())
+      .then((resposta) => {
+        console.log(resposta);
+        if (resposta.like == true) {
+          document.getElementById(`like_${idCurso}`).classList.add("like");
+        } else {
+          document.getElementById("like_" + idCurso).classList.remove("like");
+        }
+        document.getElementById(`likes_count_${idCurso}`).innerHTML =
+          resposta.likes;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+</script>
+{% endblock js %}

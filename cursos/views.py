@@ -2,6 +2,7 @@ from django.shortcuts import reverse, render, get_object_or_404, redirect
 from django.contrib import messages
 from django.db.utils import IntegrityError
 from django.views.generic.edit import CreateView, UpdateView
+from django.http import JsonResponse
 
 from .models import Curso, CursoLikes
 from .forms import CursoModelForm
@@ -70,3 +71,22 @@ def like_no_curso(request, pk):
     # SOLUCAO 1
     #return render(request, 'cursos/like_complete.html')
     return redirect(reverse('cursos.listar.tudo'))
+
+
+def api_like_no_curso(request, pk):
+
+    curso = get_object_or_404(Curso, id=pk)
+    try: 
+        CursoLikes.objects.create(user=request.user, curso=curso)
+        resposta = {
+            'like': True,
+        }
+
+    except IntegrityError as error:
+        CursoLikes.objects.get(user=request.user, curso=curso).delete()
+        resposta = {
+            'like': False,
+        }
+
+    resposta['likes'] = curso.likes.count()
+    return JsonResponse (resposta)
