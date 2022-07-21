@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+   <h1>Criação de Novo Curso</h1>
+    <form action="/cursos/form?nome=M" method="post">
+        {% csrf_token %}
+        <div>
+            Nome:<input type="text" name="nome" />
+        </div>
+        <div>
+            Imagem:<input type="text" name="imagem" />
+        </div>
+        <div>
+            Descrição: <textarea rows="6" name="descricao"></textarea>
+        </div>
+        <div>
+            Autor:
+            <select name="author">
+                <option>Renzo</option>
+                <option>Clara</option>
+            </select>
+        </div>        <div>
+            Está Ativo?
+            Sim: <input type="radio" name="ativo" checked="checked" />
+            Não: <input type="radio" name="ativo"  />
+        </div>
+        <button type="submit">Salvar</button>
+
+    </form>
+
+</body>
+</html>

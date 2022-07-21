@@ -10,4 +10,5 @@ urlpatterns = [
     path("like/<pk>", views.like_no_curso, name="cursos.like_no_curso"),
     path("api/like/<pk>", views.api_like_no_curso, name="api.cursos.like_no_curso"),
     path('', views.pagina_inicial, name='cursos.inicio'),
+    path('form', views.cursos_form, name='cursos.form'),
 ]

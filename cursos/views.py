@@ -2,7 +2,7 @@ from django.shortcuts import reverse, render, get_object_or_404, redirect
 from django.contrib import messages
 from django.db.utils import IntegrityError
 from django.views.generic.edit import CreateView, UpdateView
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 
 from .models import Curso, CursoLikes
 from .forms import CursoModelForm
@@ -90,3 +90,7 @@ def api_like_no_curso(request, pk):
 
     resposta['likes'] = curso.likes.count()
     return JsonResponse (resposta)
+
+
+def cursos_form(request):
+    return render(request, 'cursos/cursos_form.html', {})
