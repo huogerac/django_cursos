@@ -4,8 +4,8 @@ from django.db.utils import IntegrityError
 from django.views.generic.edit import CreateView, UpdateView
 from django.http import JsonResponse, HttpResponse
 
-from .models import Curso, CursoLikes
-from .forms import CursoModelForm
+from cursos.forms import CursoModelForm
+from cursos.models import Curso, CursoLikes, Autor
 
 
 def pagina_inicial(request):
@@ -69,14 +69,13 @@ def like_no_curso(request, pk):
         messages.success(request, f'Like removido!')
 
     # SOLUCAO 1
-    #return render(request, 'cursos/like_complete.html')
+    # return render(request, 'cursos/like_complete.html')
     return redirect(reverse('cursos.listar.tudo'))
 
 
 def api_like_no_curso(request, pk):
-
     curso = get_object_or_404(Curso, id=pk)
-    try: 
+    try:
         CursoLikes.objects.create(user=request.user, curso=curso)
         resposta = {
             'like': True,
@@ -89,8 +88,27 @@ def api_like_no_curso(request, pk):
         }
 
     resposta['likes'] = curso.likes.count()
-    return JsonResponse (resposta)
+    return JsonResponse(resposta)
 
 
 def cursos_form(request):
-    return render(request, 'cursos/cursos_form.html', {})
+    if request.method == 'POST':
+        nome_post = request.POST.get('nome')
+        descricao_post = request.POST.get('descricao')
+        imagem_post = request.POST.get('imagem')
+        ativo_post = request.POST.get('ativo')
+        autor_id = request.POST.get('author')
+        curso_objeto = Curso(
+            nome=nome_post,
+            descricao=descricao_post,
+            imagem=imagem_post,
+            ativo=ativo_post,
+            autor_id=autor_id
+
+        )
+        curso_objeto.save()
+        return redirect('cursos.listar.tudo')
+
+    autores = Autor.objects.order_by('nome').all()
+    contexto = {'autores': autores}
+    return render(request, 'cursos/cursos_form.html', contexto)

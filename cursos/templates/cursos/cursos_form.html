@@ -6,7 +6,7 @@
 </head>
 <body>
    <h1>Criação de Novo Curso</h1>
-    <form action="/cursos/form" method="post">
+    <form action="{% url 'cursos.form' %}" method="post">
         {% csrf_token %}
         <div>
             Nome:<input type="text" name="nome" />
@@ -20,13 +20,14 @@
         <div>
             Autor:
             <select name="author">
-                <option>Renzo</option>
-                <option>Clara</option>
+                {% for autor in autores %}
+                <option value="{{ autor.id }}">{{ autor.nome }} - {{ autor.bio }}</option>
+                {% endfor %}
             </select>
         </div>        <div>
             Está Ativo?
-            Sim: <input type="radio" name="ativo" checked="checked" />
-            Não: <input type="radio" name="ativo"  />
+            Sim: <input type="radio" name="ativo" value="True" checked="checked" />
+            Não: <input type="radio" name="ativo" value="False" />
         </div>
         <button type="submit">Salvar</button>
 
