@@ -96,8 +96,8 @@ def cursos_form(request):
         nome_post = request.POST.get('nome')
         descricao_post = request.POST.get('descricao')
         imagem_post = request.POST.get('imagem')
-        ativo_post = request.POST.get('ativo')
-        autor_id = request.POST.get('author')
+        ativo_post = request.POST.get('ativo', 'false').lower() == 'true'
+        autor_id = int(request.POST.get('author'))
         curso_objeto = Curso(
             nome=nome_post,
             descricao=descricao_post,
@@ -106,8 +106,19 @@ def cursos_form(request):
             autor_id=autor_id
 
         )
-        curso_objeto.save()
-        return redirect('cursos.listar.tudo')
+        try:
+            curso_objeto.save()
+        except IntegrityError:
+            autores = list(Autor.objects.order_by('nome').all())
+            erros = {'nome': 'Nome de curso duplicado, escolha outro'}
+            contexto = {
+                'autores': autores,
+                'erros': erros,
+                'curso': curso_objeto
+            }
+            return render(request, 'cursos/cursos_form.html', contexto, status=400)
+        else:
+            return redirect('cursos.listar.tudo')
 
     autores = Autor.objects.order_by('nome').all()
     contexto = {'autores': autores}

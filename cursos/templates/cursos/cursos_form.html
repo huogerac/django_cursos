@@ -9,25 +9,28 @@
     <form action="{% url 'cursos.form' %}" method="post">
         {% csrf_token %}
         <div>
-            Nome:<input type="text" name="nome" />
+            <div style="color: red">{{ erros.nome }}</div>
+            Nome:<input type="text" name="nome" value="{{ curso.nome }}" />
+
         </div>
         <div>
-            Imagem:<input type="text" name="imagem" />
+            Imagem:<input type="text" name="imagem" value="{{ curso.imagem }}" />
         </div>
         <div>
-            Descrição: <textarea rows="6" name="descricao"></textarea>
+            Descrição: <textarea rows="6" name="descricao" >{{ curso.descricao }}</textarea>
         </div>
         <div>
             Autor:
             <select name="author">
                 {% for autor in autores %}
-                <option value="{{ autor.id }}">{{ autor.nome }} - {{ autor.bio }}</option>
+
+                <option value="{{ autor.id }}" {% if autor.id == curso.autor_id %}selected="selected"{% endif %}>{{ autor.nome }} - {{ autor.bio }}</option>
                 {% endfor %}
             </select>
         </div>        <div>
             Está Ativo?
-            Sim: <input type="radio" name="ativo" value="True" checked="checked" />
-            Não: <input type="radio" name="ativo" value="False" />
+            Sim: <input type="radio" name="ativo" value="True" {% if curso.ativo %}checked="checked"{% endif %} />
+            Não: <input type="radio" name="ativo" value="False" {% if not curso.ativo %}checked="checked"{% endif %} />
         </div>
         <button type="submit">Salvar</button>
 
