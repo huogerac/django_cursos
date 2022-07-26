@@ -1,11 +1,11 @@
-from django.shortcuts import reverse, render, get_object_or_404, redirect
 from django.contrib import messages
 from django.db.utils import IntegrityError
+from django.http import JsonResponse
+from django.shortcuts import reverse, render, get_object_or_404, redirect
 from django.views.generic.edit import CreateView, UpdateView
-from django.http import JsonResponse, HttpResponse
 
 from cursos.forms import CursoModelForm, CursoForm
-from cursos.models import Curso, CursoLikes, Autor
+from cursos.models import Curso, CursoLikes
 
 
 def pagina_inicial(request):
@@ -62,11 +62,11 @@ def like_no_curso(request, pk):
         CursoLikes.objects.create(user=user, curso=curso)
         messages.success(request, f'{curso.autor} agradece seu LIKE!')
 
-    except IntegrityError as erro:
+    except IntegrityError:
         # SOLUCAO 1
         # messages.error(request, f'Ops! você já deu like no {curso.nome}!')
         CursoLikes.objects.get(user=user, curso=curso).delete()
-        messages.success(request, f'Like removido!')
+        messages.success(request, 'Like removido!')
 
     # SOLUCAO 1
     # return render(request, 'cursos/like_complete.html')
@@ -81,7 +81,7 @@ def api_like_no_curso(request, pk):
             'like': True,
         }
 
-    except IntegrityError as error:
+    except IntegrityError:
         CursoLikes.objects.get(user=request.user, curso=curso).delete()
         resposta = {
             'like': False,
