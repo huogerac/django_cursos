@@ -4,7 +4,7 @@ from django.db.utils import IntegrityError
 from django.views.generic.edit import CreateView, UpdateView
 from django.http import JsonResponse, HttpResponse
 
-from cursos.forms import CursoModelForm
+from cursos.forms import CursoModelForm, CursoForm
 from cursos.models import Curso, CursoLikes, Autor
 
 
@@ -93,37 +93,17 @@ def api_like_no_curso(request, pk):
 
 def cursos_form(request):
     if request.method == 'POST':
-        nome_post = request.POST.get('nome')
-        descricao_post = request.POST.get('descricao')
-        imagem_post = request.POST.get('imagem', '')
-        ativo_post = request.POST.get('ativo', 'false').lower() == 'true'
-        autor_id = int(request.POST.get('author'))
-        curso_objeto = Curso(
-            nome=nome_post,
-            descricao=descricao_post,
-            imagem=imagem_post,
-            ativo=ativo_post,
-            autor_id=autor_id
-
-        )
-        erros = {}
-        try:
-            if len(imagem_post) == 0:
-                erros['imagem']='A Imagem é um campo obrigatório'
-                raise IntegrityError()
-            curso_objeto.save()
-        except IntegrityError:
-            autores = list(Autor.objects.order_by('nome').all())
-            erros['nome'] = 'Nome de curso duplicado, escolha outro'
+        form = CursoModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('cursos.listar.tudo')
+        else:
             contexto = {
-                'autores': autores,
-                'erros': erros,
-                'curso': curso_objeto
+                'form': form,
             }
             return render(request, 'cursos/cursos_form.html', contexto, status=400)
-        else:
-            return redirect('cursos.listar.tudo')
 
-    autores = Autor.objects.order_by('nome').all()
-    contexto = {'autores': autores}
+    contexto = {
+        'form': CursoForm()
+    }
     return render(request, 'cursos/cursos_form.html', contexto)

@@ -8,31 +8,7 @@
    <h1>Criação de Novo Curso</h1>
     <form action="{% url 'cursos.form' %}" method="post">
         {% csrf_token %}
-        <div>
-            <div style="color: red">{{ erros.nome }}</div>
-            Nome:<input type="text" name="nome" value="{{ curso.nome }}" />
-
-        </div>
-        <div>
-            <div style="color: red">{{ erros.imagem }}</div>
-            Imagem:<input type="text" name="imagem" value="{{ curso.imagem }}" />
-        </div>
-        <div>
-            Descrição: <textarea rows="6" name="descricao" >{{ curso.descricao }}</textarea>
-        </div>
-        <div>
-            Autor:
-            <select name="author">
-                {% for autor in autores %}
-
-                <option value="{{ autor.id }}" {% if autor.id == curso.autor_id %}selected="selected"{% endif %}>{{ autor.nome }} - {{ autor.bio }}</option>
-                {% endfor %}
-            </select>
-        </div>        <div>
-            Está Ativo?
-            Sim: <input type="radio" name="ativo" value="True" {% if curso.ativo %}checked="checked"{% endif %} />
-            Não: <input type="radio" name="ativo" value="False" {% if not curso.ativo %}checked="checked"{% endif %} />
-        </div>
+        {{ form.as_p }}
         <button type="submit">Salvar</button>
 
     </form>
