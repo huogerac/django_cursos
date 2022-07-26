@@ -13,6 +13,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='curso',
             name='imagem',
-            field=models.URLField(default='https://eucontador.com.br/wp-content/uploads/2019/10/Cursos-Online.png', max_length=1024),
+            field=models.URLField(
+                default='https://eucontador.com.br/wp-content/uploads/2019/10/Cursos-Online.png',
+                max_length=1024
+            ),
         ),
     ]

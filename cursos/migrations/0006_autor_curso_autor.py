@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('cursos', '0005_remove_curso_autor'),
     ]
@@ -22,6 +21,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='curso',
             name='autor',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='cursos', to='cursos.autor'),
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name='cursos',
+                to='cursos.autor'
+            ),
         ),
     ]
