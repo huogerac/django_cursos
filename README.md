@@ -60,6 +60,10 @@ pip install -r requirements-dev.txt
 ./manage.py runserver 0.0.0.0:8000
 ```
 
+7. Rode dos teste do projeto
+
+No terminal, rode o comando `pytest`
+
 **FIM DO SETUP** Neste ponto o setup do projeto está completo! Parabéns!
 
 ## GUIA PARA TESTAR
