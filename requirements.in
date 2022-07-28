@@ -1,0 +1,10 @@
+Django
+
+#DB
+psycopg2
+
+# Deploy Prod
+python-dotenv
+
+# Outros
+django-extensions

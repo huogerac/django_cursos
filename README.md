@@ -86,3 +86,19 @@ Depois utilizar os comandos abaixo, alterando para os dados que quiser...
 >>> Curso.objects.create(nome='Javascript', descricao='', autor=novo_autor)
 <Curso: Javascript>
 ```
+
+# Guia para gerir dependências
+
+As dependências diretas do projeto são geridas com o [pip-tools](https://github.com/jazzband/pip-tools).
+As dependências de produção se encontram no arquivo requiremets.in.
+
+Para instalar uma nova dependência de produção, insira a dependência nesse arquivo, sem definir a versão.
+Depois rode o comando `pip-compile --generate-hashes requirements.in > requirements.txt`
+
+Já as dependências de desenvolvimento estão no arquivo requirements-dev.in.
+Para instalar uma nova dependência de desenvolvimento, acrescente a refererência nesse arquivo sem incluir a versão.
+Gere o arquivo de dependências de desenvolvimento com o comando:
+
+`pip-compile --generate-hashes requirements-dev.in > requirements-dev.txt`
+
+Por fim, atualizar o seu ambiente virtual com o comando `pip-sync requirements-dev.txt`
