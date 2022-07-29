@@ -2,7 +2,6 @@ from django.urls import reverse
 from pytest_django.asserts import assertTemplateUsed, assertContains, assertRedirects
 
 from cursos.models import Curso, Autor
-from django.contrib.auth import get_user_model
 
 
 def test_formulario_de_curso_status_ok(client, db):
@@ -42,17 +41,15 @@ def test_salvar_curso(client, db):
     assert curso.autor_id == autor.id
 
 
-def test_listar_cursos_apos_salvamento(client, db):
-    User = get_user_model()
-    user = User.objects.create(username='teste', email='teste@teste.com', password='senha')
-    client.force_login(user)
+def test_listar_cursos_apos_salvamento(client_com_usuario_logado):
+    print('Executando teste')
     dados = {
         'nome': 'Curso de Django',
         'descricao': 'Curso completo de django',
         'imagem': 'http://imagem.com',
         'ativo': 'on',
     }
-    resposta = client.post(
+    resposta = client_com_usuario_logado.post(
         reverse('cursos.form'),
         dados
     )
