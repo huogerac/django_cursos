@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('cursos/', include('cursos.urls')),
     path('contas/', include('contas.urls')),
+    path('api/', include('cursos.urls_api')),
     path('', RedirectView.as_view(url='/cursos')),
 ]
 

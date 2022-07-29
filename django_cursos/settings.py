@@ -133,6 +133,7 @@ USE_I18N = True
 
 USE_TZ = True
 
+LOGIN_URL = 'contas.login'
 LOGIN_REDIRECT_URL = '/cursos'
 LOGOUT_REDIRECT_URL = '/cursos'
 

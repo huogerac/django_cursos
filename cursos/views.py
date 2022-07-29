@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.db.utils import IntegrityError
 from django.http import JsonResponse
 from django.shortcuts import reverse, render, get_object_or_404, redirect
@@ -12,6 +13,7 @@ def pagina_inicial(request):
     return render(request, "cursos/pagina_inicial.html")
 
 
+@login_required
 def listar_cursos(request):
     ordem = request.GET.get("ordenacao", "nome")
     cursos = Curso.objects.all().order_by(ordem)

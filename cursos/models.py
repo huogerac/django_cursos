@@ -7,6 +7,12 @@ class Autor(models.Model):
     nome = models.CharField(max_length=128, unique=True)
     bio = models.TextField()
 
+    def json_dict(self):
+        return {
+            'nome': self.nome,
+            'bio': self.bio,
+        }
+
     def __str__(self):
         return self.nome
 
@@ -30,6 +36,22 @@ class Curso(models.Model):
             self.slug = slugify(self.nome)
         super(Curso, self).save(*args, **kwargs)
 
+    def json_dict(self):
+        """
+        Transforma dados do modelo curso em formato serializável pelo json
+        """
+        autor = self.autor
+        autor_json=None
+        if autor is not None:
+            autor_json = autor.json_dict()
+        return {
+            'nome': self.nome,
+            'descricao': self.descricao,
+            'imagem': self.imagem,
+            'ativo': self.ativo,
+            'autor': autor_json
+        }
+
 
 class Aula(models.Model):
     curso = models.ForeignKey("Curso", on_delete=models.CASCADE, related_name="aulas")
@@ -47,7 +69,6 @@ class Aula(models.Model):
 
 
 class CursoLikes(models.Model):
-
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE, related_name="likes")
     data = models.DateTimeField(auto_now_add=True)
