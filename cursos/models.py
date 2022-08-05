@@ -41,7 +41,7 @@ class Curso(models.Model):
         Transforma dados do modelo curso em formato serializável pelo json
         """
         autor = self.autor
-        autor_json=None
+        autor_json = None
         if autor is not None:
             autor_json = autor.json_dict()
         return {
